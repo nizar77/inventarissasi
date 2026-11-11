@@ -1,16 +1,56 @@
-<div>
-   <form action="{{ route('kategori.update', $kategori->id) }}" method="POST">
-        @csrf
-        @method('PUT')
-        <div>
-            <label for="kategori">Kategori:</label>
-            <input type="text" name="kategori" id="kategori" value="{{ $kategori->kategori }}" required>
+<x-layouts.app>
+    <div class="flex justify-center px-4 py-6">
+
+        {{-- Card Form --}}
+        <div class="w-full md:w-1/2 rounded-xl bg-surface-container p-6 shadow-lg">
+
+            <h2 class="mb-6 text-xl font-bold text-slide-60">
+                edit Kategori
+            </h2>
+
+            <form action="{{ route('kategori.update', $kategori->id) }}" method="POST" class="space-y-4">
+                @csrf
+                @method('PUT')
+
+
+                <div>
+                    <label for="nama_kategori"
+                        class="block font-body-md text-body-md font-semibold text-on-surface-variant">
+                        Nama Kategori
+                    </label>
+
+                    <input type="text" name="kategori" id="kategori" value="{{ old('kategori', $kategori->kategori) }}"
+                        class="mt-2 block w-full rounded-lg border border-surface-container-high bg-surface-container px-4 py-2.5 text-on-surface-variant focus:border-primary focus:ring-1 focus:ring-primary"
+                        placeholder="Masukkan nama kategori" required>
+
+                    @error('kategori')
+                    <p class="mt-1 text-sm text-error">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label for="deskripsi"
+                        class="block font-body-md text-body-md font-semibold text-on-surface-variant">
+                        Deskripsi
+                    </label>
+
+                    <textarea name="deskripsi" id="deskripsi" rows="4"
+                        class="mt-2 block w-full rounded-lg border border-surface-container-high bg-surface-container px-4 py-2.5 text-on-surface-variant focus:border-primary focus:ring-1 focus:ring-primary"
+                        placeholder="Masukkan deskripsi kategori">{{ old('deskripsi', $kategori->deskripsi) }}</textarea>
+
+                    @error('deskripsi')
+                    <p class="mt-1 text-sm text-error">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="flex justify-end">
+                    <button type="submit"
+                        class="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-on-primary shadow-sm hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-primary">
+                        Edit Simpan
+                    </button>
+                </div>
+
+            </form>
         </div>
-       
-        <div>
-            <label for="deskripsi">Deskripsi:</label>
-            <textarea name="deskripsi" id="deskripsi">{{ $kategori->deskripsi }}</textarea>
-        </div>
-        <button type="submit">Simpan</button>
-    </form>
-</div>
+    </div>
+</x-layouts.app>
